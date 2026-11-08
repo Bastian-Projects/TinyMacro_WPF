@@ -1,12 +1,51 @@
-﻿<Window x:Class="TinyMacro_WPF.MainWindow"
+﻿<Window x:Class="MacroRecorder.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TinyMacro_WPF"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Macro Recorder" Height="450" Width="700">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <!-- Obere Steuerungsleiste (Buttons) -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <!-- Abspielen Button -->
+            <Button Width="80" Height="60" Margin="0,0,5,0" Click="OnPlayClick">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="▶" Foreground="Green" FontSize="18" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Abspielen" FontSize="11" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Aufnehmen Button -->
+            <Button Width="80" Height="60" Margin="0,0,5,0" Click="OnRecordClick">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="●" Foreground="Red" FontSize="18" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Aufnehmen" FontSize="11" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <!-- Stopp Button -->
+            <Button Width="80" Height="60" Click="OnStopClick">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="■" Foreground="Blue" FontSize="18" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Stopp" FontSize="11" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <!-- Liste der aufgezeichneten Aktionen -->
+        <GroupBox Grid.Row="1" Header="Aktionsliste">
+            <ListView x:Name="ActionListView">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Zeit" Width="80" DisplayMemberBinding="{Binding Timestamp}"/>
+                        <GridViewColumn Header="Aktionstyp" Width="120" DisplayMemberBinding="{Binding ActionType}"/>
+                        <GridViewColumn Header="Details (Koordinaten / Key)" Width="350" DisplayMemberBinding="{Binding Details}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
     </Grid>
 </Window>
